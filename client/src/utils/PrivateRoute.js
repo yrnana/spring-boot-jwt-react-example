@@ -1,11 +1,9 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import useStore from 'hooks/useStore'
+import { useSelector } from 'react-redux'
 
 function PrivateRoute({ children, ...rest }) {
-	const {
-		token: [token],
-	} = useStore()
+	const token = useSelector(state => state.auth.token)
 
 	return (
 		<Route

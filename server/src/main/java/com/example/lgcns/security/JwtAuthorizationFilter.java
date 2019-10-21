@@ -53,8 +53,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	}
 
 	/**
-	 * JwtException를 캐치하면 오류를 Json으로 반환
-	 * (필터 안에서 발생한 오류이므로 RestExceptionHandler에서 처리할 수 없다)
+	 * JwtException를 캐치하면 오류를 Json으로 반환 (필터 안에서 발생한 오류이므로 RestExceptionHandler에서 처리할
+	 * 수 없다)
 	 * 
 	 * @param response
 	 * @param e

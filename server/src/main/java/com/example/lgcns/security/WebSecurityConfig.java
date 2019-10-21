@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -50,30 +50,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		// api로 시작하지 않는 경로는 무시한다
+		// api로 시작하지 않는 경로는 무시한다 (선순위 조건)
 		web.ignoring().regexMatchers("^(?!/api).*");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		String[] privatePaths = { "/api/employees" };
 
 		// disable CSRF
 		http.cors().and().csrf().disable();
 
 		// Entry points
+		String[] privatePaths = { "/api/employees" };
 		//@formatter:off
 		http.authorizeRequests()
-			.antMatchers(privatePaths).authenticated()
-			.antMatchers("/**").permitAll();
+		.antMatchers(privatePaths).authenticated()
+		.antMatchers("/api/**").permitAll()
+		.and();
 		//@formatter:on
 
 		// No Session
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// apply jwt filter
-		http.addFilter(getJwtAuthenticationFilter()).addFilterAt(getJwtAuthorizationFilter(),
-				BasicAuthenticationFilter.class);
+		//@formatter:off
+		http.addFilter(getJwtAuthenticationFilter())
+			.addFilterBefore(getJwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+		//@formatter:on
 
 		// error handling
 		http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);

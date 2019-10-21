@@ -1,17 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import useStore from 'hooks/useStore'
+import { useDispatch } from 'react-redux'
+import { logout } from 'stores/auth'
 import api from 'utils/api'
 
 function Protected() {
-	const {
-		token: [, setToken],
-	} = useStore()
-
-	let history = useHistory()
+	const dispatch = useDispatch()
+	const history = useHistory()
 
 	const handleClick = () => {
-		setToken('')
+		dispatch(logout())
 		history.push('/login')
 	}
 
