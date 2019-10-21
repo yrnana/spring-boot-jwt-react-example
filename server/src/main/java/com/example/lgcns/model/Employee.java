@@ -30,7 +30,7 @@ import lombok.ToString;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "department", "job", "manager" })
 @Setter
 @Getter
-@ToString(exclude = { "department", "job", "employee" })
+@ToString(exclude = { "department", "job", "manager" })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = { "employeeId" })
 @Entity
