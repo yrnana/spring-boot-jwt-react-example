@@ -65,8 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//@formatter:off
 		http.authorizeRequests()
 		.antMatchers(privatePaths).authenticated()
-		.antMatchers("/api/**").permitAll()
-		.and();
+		.antMatchers("/api/**").permitAll();
 		//@formatter:on
 
 		// No Session

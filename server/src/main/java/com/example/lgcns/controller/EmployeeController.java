@@ -8,11 +8,13 @@ import com.example.lgcns.repository.DepartmentRepository;
 import com.example.lgcns.repository.EmployeeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,8 +31,11 @@ public class EmployeeController {
 	private DepartmentRepository departmentRepository;
 
 	@GetMapping("")
-	List<Employee> findAll() {
-		return employeeRepository.findAll();
+	List<Employee> findAll(@RequestParam(value = "page", required = false) Integer page) {
+		if (page == null) {
+			return employeeRepository.findAll();
+		}
+		return employeeRepository.findAll(PageRequest.of(page, 10)).toList();
 	}
 
 	@GetMapping("/{id}")

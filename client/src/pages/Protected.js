@@ -8,6 +8,8 @@ function Protected() {
 	const dispatch = useDispatch()
 	const history = useHistory()
 
+	const [employees, setEmployees] = React.useState([])
+
 	const handleClick = () => {
 		dispatch(logout())
 		history.push('/login')
@@ -15,7 +17,7 @@ function Protected() {
 
 	const fetch = async () => {
 		let { data } = await api.get('/employees')
-		console.log(data)
+		setEmployees(data)
 	}
 
 	React.useEffect(() => {
@@ -26,6 +28,11 @@ function Protected() {
 		<div>
 			<div>Protected</div>
 			<button onClick={handleClick}>로그아웃</button>
+			{employees.map(e => (
+				<div key={e.employeeId}>
+					{e.firstName} {e.lastName}
+				</div>
+			))}
 		</div>
 	)
 }

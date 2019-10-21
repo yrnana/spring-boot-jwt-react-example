@@ -7,18 +7,18 @@ import * as serviceWorker from './serviceWorker'
 import ThemeProvider from 'utils/theme'
 
 import { createStore } from 'redux'
-import rootReducer from './stores'
 import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import rootReducer from './stores'
 
 const store = createStore(rootReducer, composeWithDevTools())
 
 ReactDOM.render(
-	<ThemeProvider>
-		<Provider store={store}>
+	<Provider store={store}>
+		<ThemeProvider>
 			<App />
-		</Provider>
-	</ThemeProvider>,
+		</ThemeProvider>
+	</Provider>,
 	document.getElementById('root')
 )
 
