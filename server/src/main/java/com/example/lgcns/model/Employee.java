@@ -27,7 +27,7 @@ import lombok.ToString;
 /**
  * Employee
  */
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "department", "job", "employee" })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "department", "job", "manager" })
 @Setter
 @Getter
 @ToString(exclude = { "department", "job", "employee" })
@@ -81,5 +81,5 @@ public class Employee {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "manager_id", referencedColumnName = "employee_id", foreignKey = @ForeignKey(name = "employees_ibfk_3"), insertable = false, updatable = false)
-	private Employee employee;
+	private Employee manager;
 }
