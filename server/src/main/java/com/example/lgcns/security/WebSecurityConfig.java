@@ -91,3 +91,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new JwtAuthorizationFilter(authenticationManager());
 	}
 }
+
+// https://dev.to/keysh/spring-security-with-jwt-3j76

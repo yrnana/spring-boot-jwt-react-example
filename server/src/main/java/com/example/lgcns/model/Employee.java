@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString(exclude = { "department", "job", "manager" })
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @EqualsAndHashCode(of = { "employeeId" })
 @Entity
 @Table(name = "employees", indexes = { @Index(name = "job_id", columnList = "job_id"),

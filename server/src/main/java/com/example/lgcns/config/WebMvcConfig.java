@@ -23,6 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.addResolver(new PathResourceResolver() {
 					@Override
 					protected Resource getResource(String resourcePath, Resource location) throws IOException {
+						if (resourcePath.startsWith("api")) {
+							throw new IOException();
+						}
 						Resource requestedResource = location.createRelative(resourcePath);
 						return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
 								: new ClassPathResource("/static/index.html");
@@ -30,3 +33,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				});
 	}
 }
+
+// https://stackoverflow.com/questions/48411351/fallback-to-react-application-from-spring-controller

@@ -15,3 +15,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
 	@Query("SELECT d FROM Employee e LEFT OUTER JOIN e.department d WHERE e.employeeId = :id")
 	Optional<Department> findByEmployeeId(Integer id);
 }
+
+// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
