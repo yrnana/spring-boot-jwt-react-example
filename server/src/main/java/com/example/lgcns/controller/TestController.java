@@ -53,6 +53,15 @@ public class TestController {
 		return json;
 	}
 
+	@PostMapping("/param2")
+	public Map<String, Object> param2(@RequestBody Map<String, Object> map)
+			throws JsonMappingException, JsonProcessingException {
+		System.out.println(map);
+		System.out.println(map.get("tct"));
+		System.out.println(map.get("te"));
+		return map;
+	}
+
 	@Autowired
 	private TestService testService;
 
